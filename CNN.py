@@ -140,7 +140,7 @@ for x in range(1440):
         img = keras.utils.img_to_array(img)
         x = np.expand_dims(img, axis=0) * 1. / 255
         score = model.predict(x)
-        arr.append(score)
+        arr.append(score[0][0])
     else:
         print('does not exist')
 print(arr)
