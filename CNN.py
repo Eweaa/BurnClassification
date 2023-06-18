@@ -10,6 +10,15 @@ from keras.models import Model
 from keras.optimizers import Adam
 import scipy
 
+def degreeBurn(score):
+    if score < 0.5877119:
+        result = 'predicted degree is: second degree burn'
+    elif 0.5877119 < score < 0.6695302:
+        result = 'predicted degree is: first degree burn'
+    else:
+        result = 'predicted degree is: third degree burn'
+    return result
+
 imgWidth, imgHeight = 299, 299
 
 trainDataLocation = r"C:\Users\Eweaa\Desktop\Python\CNN3\Dataset\TRAIN"
@@ -85,39 +94,39 @@ import numpy as np
 from keras.preprocessing import image
 from keras.utils import load_img
 #
-# imgPath = r"C:\Users\Eweaa\Desktop\Python\CNN3\Dataset\TEST\Label 0\img1429.jpg"
-# imgPath2 = r"C:\Users\Eweaa\Desktop\Python\CNN3\Dataset\TEST\Label 1\img1364.jpg"
-# imgPath3 = r"C:\Users\Eweaa\Desktop\Python\CNN3\Dataset\TEST\Label 2\img1068.jpg"
+imgPath = r"C:\Users\Eweaa\Desktop\Python\CNN3\Dataset\TEST\Label 0\img1429.jpg"
+imgPath2 = r"C:\Users\Eweaa\Desktop\Python\CNN3\Dataset\TEST\Label 1\img1364.jpg"
+imgPath3 = r"C:\Users\Eweaa\Desktop\Python\CNN3\Dataset\TEST\Label 2\img1068.jpg"
 
 # img = image.load_img(imgPath, target_size=(imgWidth, imgHeight))
-# img = keras.utils.load_img(imgPath, target_size=(imgWidth, imgHeight))
-# img2 = keras.utils.load_img(imgPath2, target_size=(imgWidth, imgHeight))
-# img3 = keras.utils.load_img(imgPath3, target_size=(imgWidth, imgHeight))
+img = keras.utils.load_img(imgPath, target_size=(imgWidth, imgHeight))
+img2 = keras.utils.load_img(imgPath2, target_size=(imgWidth, imgHeight))
+img3 = keras.utils.load_img(imgPath3, target_size=(imgWidth, imgHeight))
 # # img2 = image.load_img(imgPath2, target_size=(imgWidth, imgHeight))
 #
-# plt.imshow(img)
-# plt.show()
+plt.imshow(img)
+plt.show()
 #
-# img = keras.utils.img_to_array(img)
-# x = np.expand_dims(img, axis=0) * 1. / 255
-# score1 = model.predict(x)
-# print('first degree burn ', score1)
-
-# print('Predicted: ', score, 'Chest X-ray' if score < 0.5 else 'Abd x-ray')
+img = keras.utils.img_to_array(img)
+x = np.expand_dims(img, axis=0) * 1. / 255
+score1 = model.predict(x)
+print('first degree burn ', score1)
+print(degreeBurn(score1))
 
 # plt.imshow(img2)
 # plt.show()
 #
-# img2 = keras.utils.img_to_array(img2)
-# x = np.expand_dims(img2, axis=0) * 1. / 255
-# score2 = model.predict(x)
-# print('second degree burn ', score2)
-# print('Predicted: ', score2, 'Chest X-ray' if score2 < 0.5 else 'Abd x-ray')
+img2 = keras.utils.img_to_array(img2)
+x = np.expand_dims(img2, axis=0) * 1. / 255
+score2 = model.predict(x)
+print('second degree burn ', score2)
+print(degreeBurn(score2))
 
-# img3 = keras.utils.img_to_array(img3)
-# x = np.expand_dims(img2, axis=0) * 1. / 255
-# score3 = model.predict(x)
-# print('third degree burn ', score3)
+img3 = keras.utils.img_to_array(img3)
+x = np.expand_dims(img2, axis=0) * 1. / 255
+score3 = model.predict(x)
+print('third degree burn ', score3)
+print(degreeBurn(score3))
 #
 # plt.imshow(img3)
 # plt.show()
@@ -125,24 +134,20 @@ from keras.utils import load_img
 # print('Predicted: ', score2, 'Chest X-ray' if score2 < 0.5 else 'Abd x-ray')
 
 
-# import shutil
-#
-# for i in range(1440):
-#     labelImgPath =
 
-import shutil
-from statistics import mean
-from os.path import exists
-arr = []
-for x in range(1440):
-    if exists(f'./Dataset/TRAIN/Label 0/img{x}.jpg'):
-        img = keras.utils.load_img(r'./Dataset/TRAIN/Label 0/img'+str(x)+'.jpg', target_size=(imgWidth, imgHeight))
-        img = keras.utils.img_to_array(img)
-        x = np.expand_dims(img, axis=0) * 1. / 255
-        score = model.predict(x)
-        arr.append(score[0][0])
-    else:
-        print('does not exist')
-print(arr)
-theMean = mean(arr)
-print('the threshold is ' + str(theMean))
+# import shutil
+# from statistics import mean
+# from os.path import exists
+# arr = []
+# for x in range(1440):
+#     if exists(f'./Dataset/TRAIN/Label 0/img{x}.jpg'):
+#         img = keras.utils.load_img(r'./Dataset/TRAIN/Label 0/img'+str(x)+'.jpg', target_size=(imgWidth, imgHeight))
+#         img = keras.utils.img_to_array(img)
+#         x = np.expand_dims(img, axis=0) * 1. / 255
+#         score = model.predict(x)
+#         arr.append(score[0][0])
+#     else:
+#         print('does not exist')
+# print(arr)
+# theMean = mean(arr)
+# print('the threshold is ' + str(theMean))
